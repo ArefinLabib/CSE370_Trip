@@ -1,10 +1,10 @@
 document.getElementById('homeButton').addEventListener('click', () => {
-    window.location.href = '/Frontend/Landing Page/landing.html';
+    window.location.href = '../Landing Page/landing.html';
 });
 
 document.getElementById('logoutButton').addEventListener('click', () => {
     localStorage.removeItem('token');
-    window.location.replace('/Frontend/Signup/registration.html');
+    window.location.replace('../Signup/registration.html');
 });
 
 const token = localStorage.getItem('token');
@@ -57,12 +57,19 @@ function displayRequests(requests) {
         const approveButton = document.createElement('button');
         approveButton.className = 'approve-button';
         approveButton.textContent = 'Approve';
-        approveButton.onclick = () => handleRequest(request.requestID, 'approved');
+        // approveButton.onclick = () => handleRequest(request.requestID, 'approved');
+        approveButton.onclick = () => {
+            if (request.actionType === 'delete') {
+                handleDeleteRequest(request.requestID, 'approved');
+            } else {
+                handleRequest(request.requestID, 'approved');
+            }
+        };
 
         const rejectButton = document.createElement('button');
         rejectButton.className = 'reject-button';
         rejectButton.textContent = 'Reject';
-        rejectButton.onclick = () => handleRequest(request.requestID, 'rejected');
+        rejectButton.onclick = () => rejectRequest(request.requestID, 'rejected');
 
         listItem.appendChild(requestInfo);
         listItem.appendChild(approveButton);
@@ -92,6 +99,56 @@ async function handleRequest(requestID, status) {
         }
     } catch (error) {
         alert('Error handling the request.');
+        console.error(error);
+    }
+}
+
+async function handleDeleteRequest(requestID, status) {
+    try {
+        const response = await fetch(`http://localhost:8081/admin/handleDeleteRequest/${requestID}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message || 'Request handled successfully.');
+            fetchPendingRequests(); // Refresh the list
+        } else {
+            alert(data.message || 'Failed to handle the request.');
+        }
+    } catch (error) {
+        alert('Error handling the request.');
+        console.error(error);
+    }
+}
+
+async function rejectRequest(requestID, status) {
+    try {
+        const response = await fetch(`http://localhost:8081/admin/rejectRequest/${requestID}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message || 'Request rejected successfully.');
+            fetchPendingRequests(); // Refresh the list
+        } else {
+            alert(data.message || 'Failed to reject the request.');
+        }
+    } catch (error) {
+        alert('Error rejecting the request.');
         console.error(error);
     }
 }

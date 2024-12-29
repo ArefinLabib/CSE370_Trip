@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticate } = require('../Middleware/auth'); // Auth middleware
-const {getUserBusinesses, addRequest} = require('../controllers/business_controller');
+const {getUserBusinesses, deleteRequest, addRequest} = require('../controllers/business_controller');
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.get('/getUserBusinesses', authenticate, getUserBusinesses);
 router.post('/addRequest', authenticate, addRequest);
 
 // Delete a business
+router.delete('/deleteRequest/:serviceID', authenticate, deleteRequest);
 // router.delete('/delete/:serviceID', authenticate, deleteBusiness);
 
 module.exports = router;

@@ -27,12 +27,42 @@ exports.getUserBusinesses = async (req, res) => {
     }
 };  
 
+// request to delete business
+exports.deleteRequest = async (req, res) => {
+    const { serviceID } = req.params;
+
+    try {
+        // Ensure the user is a provider
+        if (req.user.role !== 'Service') {
+            return res.status(403).json({ message: 'Access denied. Only business accounts can submit requests.' });
+        }
+
+        // Fetch providerID
+        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.id]);
+        if (!provider.length) {
+            return res.status(404).json({ message: 'Provider not found.' });
+        }
+        const providerID = provider[0].providerID;
+
+        // Insert delete request into the Requests table
+        await db.execute(
+            'INSERT INTO Requests (providerID, serviceID, actionType, requestData) VALUES (?, ?, ?, ?)',
+            [providerID, serviceID, 'delete', JSON.stringify({ serviceID })]
+        );
+
+        res.status(201).json({ message: 'Delete request submitted successfully. Awaiting admin approval.' });
+    } catch (error) {
+        console.error('Error in deleteRequest:', error.message);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+};
+
 
 // request to add a business
 exports.addRequest = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { action, serviceID, requestBody } = req.body; // serviceID is null in case of adding new Business
-    console.log(action, serviceID, requestBody);
+    // console.log(action, serviceID, requestBody);
     
 
     try {

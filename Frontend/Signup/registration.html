@@ -182,7 +182,7 @@
             message.style.color = "green";
             message.textContent = result.message;
             setTimeout(() => {
-                        window.location.replace('/Frontend/Signup/registration.html'); // Redirect to landing page
+                        window.location.replace('../Signup/registration.html'); // Redirect to landing page
                     }, 1500);
         } else {
             message.style.color = "red";
@@ -239,9 +239,9 @@
                 // redirect to suitable page according to user role
                 setTimeout(() => {
                     if (result.role === "Admin") {
-                        window.location.replace('/Frontend/admin/admin.html');
+                        window.location.replace('../admin/admin.html');
                     } else {
-                        window.location.replace('/Frontend/Landing Page/landing.html');
+                        window.location.replace('../Landing Page/landing.html');
                     }  
                 }, 1500);
             } else {

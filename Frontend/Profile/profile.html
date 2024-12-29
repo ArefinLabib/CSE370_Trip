@@ -235,6 +235,31 @@
             });
         }
 
+        // submit request for deleting a business
+        async function deleteBusiness(serviceID) {
+            try {
+                const response = await fetch(`http://localhost:8081/business/deleteRequest/${serviceID}`, {
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message || 'Business deleted successfully.');
+                    fetchBusinesses(); // Refresh the list
+                } else {
+                    alert(data.message || 'Failed to delete the business.');
+                }
+            } catch (error) {
+                alert('Error deleting the business.');
+                console.error(error);
+            }
+        }
+
 
         // Add a new business (send request for admin approval first)
         async function addBusiness(e) {
@@ -286,12 +311,12 @@
         // Initial fetch of businesses
         fetchBusinesses();
         document.getElementById('homeButton').addEventListener('click', () => {
-            window.location.href = '/Frontend/Landing Page/landing.html';
+            window.location.href = '../Landing Page/landing.html';
         });
 
         document.getElementById('logoutButton').addEventListener('click', () => {
             localStorage.removeItem('token');
-            window.location.replace('/Frontend/Signup/registration.html');
+            window.location.replace('../Signup/registration.html');
         });
     </script>
 </body>
