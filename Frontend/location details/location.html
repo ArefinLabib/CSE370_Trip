@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Details</title>
+    <link rel="stylesheet" href="location.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <a href="#" class="brand">Travel</a>
+            <nav class="navigation">
+                <ul class="navigation-items">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="location-info">
+            <h2>Location Name</h2>
+            <p>Description of the location.</p>
+        </section>
+        <section class="services">
+            <h2>Hotels and Restaurants</h2>
+            <div class="service-items" id="service-items">
+                <!-- Service items will be inserted here dynamically -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Travel. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationId = '123'; // Replace with the actual location ID
+            fetch(`https://api.example.com/services?locationId=${locationId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const serviceItemsContainer = document.getElementById('service-items');
+                    data.forEach(service => {
+                        const serviceItem = document.createElement('div');
+                        serviceItem.className = 'service-item';
+                        serviceItem.innerHTML = `
+                            <h3>${service.name}</h3>
+                            <p>Location: ${service.locationName}</p>
+                            <p>Rating: ${service.rating} stars</p>
+                            <button class="btn" onclick="viewDetails('${service.id}')">View Details</button>
+                        `;
+                        serviceItemsContainer.appendChild(serviceItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching services:', error));
+        });
+
+        function viewDetails(serviceId) {
+            window.location.href = `hotel.html?serviceId=${serviceId}`;
+        }
+    </script>
+</body>
+</html>
