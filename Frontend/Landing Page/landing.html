@@ -14,21 +14,6 @@
             <div class="container">
                 <form action="">
                     <input type="text" placeholder="Search" name="q" id="search_bar">
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel On Landing Page</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-</head>
-<body>
-    <header>
-        <div class="left">
-            <a href="#" class="brand">Travel</a>
-            <div class="container">
-                <form action="">
-                    <input type="text" placeholder="Search" name="q" id="search_bar">
                     <button type="submit" id="search_button"><img src="search_icon.png" id="search_img"></button>
                 </form>
             </div>
@@ -111,43 +96,34 @@
         // javascript of responsive navigation menu
         const menuBtn = document.querySelector(".menu-btn");
         const navigation = document.querySelector(".navigation");
-
         menuBtn.addEventListener("click", () => {
             menuBtn.classList.toggle("active");
             navigation.classList.toggle("active");
         });
-
         // Javascript for video slider navigation
         const btns = document.querySelectorAll(".nav-btn");
         const slides = document.querySelectorAll(".img-slide");
         const contents = document.querySelectorAll(".content");
-
         var sliderNav = function(manual){
             btns.forEach((btn) => {
                 btn.classList.remove("active");
             });
-
             slides.forEach((slide) => {
                 slide.classList.remove("active");
             });
-
             contents.forEach((content) => {
                 content.classList.remove("active");
             });
-
             btns[manual].classList.add("active");
             slides[manual].classList.add("active");
             contents[manual].classList.add("active");
         }
-
         btns.forEach((btn, i) => {
             btn.addEventListener("click", () => {
                 sliderNav(i);
             });
         });
-
         var theme_changer = document.getElementById("theme_changer");
-
         theme_changer.onclick = function(){
             document.body.classList.toggle("dark-theme");
             if(document.body.classList.contains("dark-theme")){
@@ -157,19 +133,11 @@
                 theme_changer.src = "dark.png";
             }
         }
-            document.getElementById('logoutButton').addEventListener('click', () => {
-                // Clear the JWT token from localStorage
-            localStorage.removeItem('token');
-
-                // Redirect to the login page or home page
-            window.location.replace('../Signup/registration.html');
-            });
-            document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('token');
             const loginButton = document.getElementById('loginButton');
             const signupButton = document.getElementById('signupButton');
             const logoutButton = document.getElementById('logoutButton');
-
             if (token) {
                 loginButton.style.display = 'none';
                 signupButton.style.display = 'none';
@@ -179,7 +147,6 @@
                 signupButton.style.display = 'block';
                 logoutButton.style.display = 'none';
             }
-
             logoutButton.addEventListener('click', () => {
                 localStorage.removeItem('token');
                 window.location.reload();
