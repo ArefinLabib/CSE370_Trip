@@ -54,7 +54,7 @@ exports.handleRequest = async (req, res) => {
             return res.status(403).json({ message: 'Access denied. Only admins can handle requests.' });
         }
 
-        const [requestResult] = await db.execute('SELECT providerID, actionType, requestData FROM Requests WHERE requestID = ?', [requestID]);
+        const [requestResult] = await db.execute('SELECT providerID, serviceID, actionType, requestData FROM Requests WHERE requestID = ?', [requestID]);
         if (requestResult.length === 0) {
             return res.status(404).json({ message: 'Request not found.' });
         }
@@ -90,7 +90,23 @@ exports.handleRequest = async (req, res) => {
                             'INSERT INTO Restaurants (serviceID) VALUES (?)',
                             [newServiceID]);
                     }
-            } 
+            } else {
+                const data = JSON.parse(requestData);
+                const { name, description, rating, serviceType, locationName } = data;
+
+                // Find locationID using locationName
+                const [locationResult] = await db.execute('SELECT locationID FROM Location WHERE locationName = ?', [locationName]);
+                if (locationResult.length === 0) {
+                    return res.status(404).json({ message: 'Location not found.' });
+                }
+                const locationID = locationResult[0].locationID;
+
+                // Update the service details
+                await db.execute(
+                    'UPDATE Service SET name = ?, description = ?, rating = ?, serviceType = ?, locationID = ? WHERE serviceID = ?',
+                    [name, description, rating, serviceType, locationID, serviceID]
+                );
+            }
         await db.execute('UPDATE Requests SET status = "approved" WHERE requestID = ?', [requestID]);
         res.status(200).json({ message: 'Request approved successfully.' });
     } catch (error) {

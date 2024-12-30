@@ -1,78 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" dir = "ltr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Travel On Landing Page</title>
-        <link rel = "stylesheet" href = "style.css">
-        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    </head>
-    <body>
-        <header>
-            <a href = "#" class = "brand">Travel</a>
-            <div class = "container">
-                <form action = "">
-                    <input type="text" placeholder="Search" name = "q" id="search_bar">
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel On Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="left">
+            <a href="#" class="brand">Travel</a>
+            <div class="container">
+                <form action="">
+                    <input type="text" placeholder="Search" name="q" id="search_bar">
                     <button type="submit" id="search_button"><img src="search_icon.png" id="search_img"></button>
                 </form>
             </div>
-            <img src = "dark.png" id = "theme_changer">
-            <div class = "menu-btn"></div>
-            <div class = "navigation">
-                <div class = "navigation-items">
-                    <a href = "#">Home</a>
-                    <a href = "#">About</a>
-                    <a href = "#">Explore</a>
-                    <a href = "#">Gallery</a>
-                    <a href = "#">Contact</a>
-                    <a href="../Profile/profile.html">Profile</a>
-                    <button id="logoutButton" class="Logout">Logout</button>
-                </div>
+        </div>
+        <div class="right">
+            <img src="dark.png" id="theme_changer" alt="Theme Changer">
+            <div class="menu-btn"></div>
+            <nav class="navigation">
+                <ul class="navigation-items">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="../Profile/profile.html">Profile</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="../Signup/registration.html#login" class="btn" id="loginButton">Login</a>
+                <a href="../Signup/registration.html#register" class="btn" id="signupButton">Sign Up</a>
+                <button id="logoutButton" class="Logout btn" style="display: none;">Logout</button>
             </div>
-        </header>
-        <section class = "home">
-            <img class = "img-slide active" src="landing_background1.jpeg"/>
-            <img class = "img-slide" src="landing_background2.jpeg"/>
-            <img class = "img-slide" src="landing_background3.jpeg"/>
-            <img class = "img-slide" src="landing_background4.jpeg"/>
-            <img class = "img-slide" src="landing_background5.jpeg"/>
-
-            <div class = "content active">
+        </div>
+    </header>
+    <main>
+        <section class="home">
+            <div class="slider">
+                <img class="img-slide active" src="landing_background1.jpeg" alt="Background 1"/>
+                <img class="img-slide" src="landing_background2.jpeg" alt="Background 2"/>
+                <img class="img-slide" src="landing_background3.jpeg" alt="Background 3"/>
+                <img class="img-slide" src="landing_background4.jpeg" alt="Background 4"/>
+                <img class="img-slide" src="landing_background5.jpeg" alt="Background 5"/>
+            </div>
+            <div class="content active">
                 <h1>Wonderful.<br><span>Island</span></h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem labore doloremque aspernatur ullam dicta est corporis consequuntur recusandae odit voluptatibus architecto molestiae quas, vero magnam cum nulla cupiditate dignissimos at?</p>
-                <a href = "#">Read More</a>
+                <a href="#" class="read-more">Read More</a>
             </div>
-            <div class = "content">
+            <div class="content">
                 <h1>Enjoy.<br><span>Mountains</span></h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem labore doloremque aspernatur ullam dicta est corporis consequuntur recusandae odit voluptatibus architecto molestiae quas, vero magnam cum nulla cupiditate dignissimos at?</p>
-                <a href = "#">Read More</a>
+                <a href="#" class="read-more">Read More</a>
             </div>
-            <div class = "content">
+            <div class="content">
                 <h1>River.<br><span>Journey</span></h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem labore doloremque aspernatur ullam dicta est corporis consequuntur recusandae odit voluptatibus architecto molestiae quas, vero magnam cum nulla cupiditate dignissimos at?</p>
-                <a href = "#">Read More</a>
+                <a href="#" class="read-more">Read More</a>
             </div>
-            <div class = "content">
-                <h1>Advantures.<br><span>Off Road</span></h1>
+            <div class="content">
+                <h1>Adventures.<br><span>Off Road</span></h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem labore doloremque aspernatur ullam dicta est corporis consequuntur recusandae odit voluptatibus architecto molestiae quas, vero magnam cum nulla cupiditate dignissimos at?</p>
-                <a href = "#">Read More</a>
+                <a href="#" class="read-more">Read More</a>
             </div>
-            <div class = "content">
-                <h1>Historical.<br><span>Advantures</span></h1>
+            <div class="content">
+                <h1>Historical.<br><span>Adventures</span></h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem labore doloremque aspernatur ullam dicta est corporis consequuntur recusandae odit voluptatibus architecto molestiae quas, vero magnam cum nulla cupiditate dignissimos at?</p>
-                <a href = "#">Read More</a>
+                <a href="#" class="read-more">Read More</a>
             </div>
-            <div class = "content">
+            <div class="content">
                 <h1>Feel Nature.<br><span>Relax</span></h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem labore doloremque aspernatur ullam dicta est corporis consequuntur recusandae odit voluptatibus architecto molestiae quas, vero magnam cum nulla cupiditate dignissimos at?</p>
-                <a href = "#">Read More</a>
+                <a href="#" class="read-more">Read More</a>
             </div>
-            <div class = "media-icons">
-                <a href = "#"><i class = "fab fa-facebook-f"></i></a>
-                <a href = "#"><i class = "fab fa-instagram"></i></a>
-                <a href = "#"><i class = "fab fa-twitter"></i></a>
+            <div class="media-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
-            <div class = "slider-navigation">
+            <div class="slider-navigation">
                 <div class="nav-btn active"></div>
                 <div class="nav-btn"></div>
                 <div class="nav-btn"></div>
@@ -80,73 +90,86 @@
                 <div class="nav-btn"></div>
             </div>
         </section>
-        
-        <script type="text/javascript">
-            // javascript of responsive navigation menu
-            const menuBtn = document.querySelector(".menu-btn");
-            const navigation = document.querySelector(".navigation");
+    </main>
+    
+    <script type="text/javascript">
+        // javascript of responsive navigation menu
+        const menuBtn = document.querySelector(".menu-btn");
+        const navigation = document.querySelector(".navigation");
 
-            menuBtn.addEventListener("click", () => {
-                menuBtn.classList.toggle("active");
-                navigation.classList.toggle("active");
-            })
+        menuBtn.addEventListener("click", () => {
+            menuBtn.classList.toggle("active");
+            navigation.classList.toggle("active");
+        });
 
-            // Javascript for video slider navigation
-            const btns = document.querySelectorAll(".nav-btn");
-            const slides = document.querySelectorAll(".img-slide");
-            const contents = document.querySelectorAll(".content");
+        // Javascript for video slider navigation
+        const btns = document.querySelectorAll(".nav-btn");
+        const slides = document.querySelectorAll(".img-slide");
+        const contents = document.querySelectorAll(".content");
 
-
-            var sliderNav = function(manual){
-                btns.forEach((btn) => {
-                    btn.classList.remove("active");
-                });
-
-                slides.forEach((slide) => {
-                    slide.classList.remove("active");
-                });
-
-                contents.forEach((content) => {
-                    content.classList.remove("active");
-                });
-
-                btns[manual].classList.add("active");
-                slides[manual].classList.add("active");
-                contents[manual].classList.add("active");
-
-            }
-
-            btns.forEach((btn, i) => {
-                btn.addEventListener("click", () => {
-                    sliderNav(i);
-                });
+        var sliderNav = function(manual){
+            btns.forEach((btn) => {
+                btn.classList.remove("active");
             });
 
+            slides.forEach((slide) => {
+                slide.classList.remove("active");
+            });
 
-            var theme_changer = document.getElementById("theme_changer");
+            contents.forEach((content) => {
+                content.classList.remove("active");
+            });
 
-            theme_changer.onclick = function(){
-                document.body.classList.toggle("dark-theme");
-                if(document.body.classList.contains("dark-theme")){
-                    theme_changer.src = "light.png";
-                }
-                else{
-                    theme_changer.src = "dark.png";
-                }
+            btns[manual].classList.add("active");
+            slides[manual].classList.add("active");
+            contents[manual].classList.add("active");
+        }
+
+        btns.forEach((btn, i) => {
+            btn.addEventListener("click", () => {
+                sliderNav(i);
+            });
+        });
+
+        var theme_changer = document.getElementById("theme_changer");
+
+        theme_changer.onclick = function(){
+            document.body.classList.toggle("dark-theme");
+            if(document.body.classList.contains("dark-theme")){
+                theme_changer.src = "light.png";
             }
-
-            
+            else{
+                theme_changer.src = "dark.png";
+            }
+        }
             document.getElementById('logoutButton').addEventListener('click', () => {
                 // Clear the JWT token from localStorage
-                localStorage.removeItem('token');
+            localStorage.removeItem('token');
 
                 // Redirect to the login page or home page
-                window.location.replace('../Signup/registration.html');
+            window.location.replace('../Signup/registration.html');
             });
+            document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const loginButton = document.getElementById('loginButton');
+            const signupButton = document.getElementById('signupButton');
+            const logoutButton = document.getElementById('logoutButton');
 
-        </script>
+            if (token) {
+                loginButton.style.display = 'none';
+                signupButton.style.display = 'none';
+                logoutButton.style.display = 'block';
+            } else {
+                loginButton.style.display = 'block';
+                signupButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+            }
 
-        
-        
-    </body>
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                window.location.reload();
+            });
+        });
+    </script>
+</body>
 </html>

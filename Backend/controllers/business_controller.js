@@ -92,3 +92,33 @@ exports.addRequest = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };
+
+exports.editRequest = async (req, res) => {
+    const { serviceID } = req.params;
+    const {action, serviceID2, requestBody} = req.body;
+
+    try {
+        // Ensure the user is a provider
+        if (req.user.role !== 'Service') {
+            return res.status(403).json({ message: 'Access denied. Only business accounts can submit requests.' });
+        }
+
+        // Fetch providerID
+        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.id]);
+        if (!provider.length) {
+            return res.status(404).json({ message: 'Provider not found.' });
+        }
+        const providerID = provider[0].providerID;
+
+        // Insert edit request into the Requests table
+        await db.execute(
+            'INSERT INTO Requests (providerID, serviceID, actionType, requestData) VALUES (?, ?, ?, ?)',
+            [providerID, serviceID, action, JSON.stringify(requestBody)]
+        );
+
+        res.status(201).json({ message: 'Edit request submitted successfully. Awaiting admin approval.' });
+    } catch (error) {
+        console.error('Error in editRequest:', error.message);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+};

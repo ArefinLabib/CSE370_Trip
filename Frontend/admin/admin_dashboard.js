@@ -57,7 +57,6 @@ function displayRequests(requests) {
         const approveButton = document.createElement('button');
         approveButton.className = 'approve-button';
         approveButton.textContent = 'Approve';
-        // approveButton.onclick = () => handleRequest(request.requestID, 'approved');
         approveButton.onclick = () => {
             if (request.actionType === 'delete') {
                 handleDeleteRequest(request.requestID, 'approved');
