@@ -1,13 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-* {
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
 :root {
     --light1: #fff;
     --light2: #2696E9;
@@ -22,7 +19,6 @@
     --light11: #ff6f61; /* New joyful color */
     --light12: #4CAF50; /* New green color */
 }
-
 .dark-theme {
     --light1: #fff;
     --light2: #2696E9;
@@ -37,13 +33,11 @@
     --light11: #ff6f61; /* Joyful color remains the same */
     --light12: #4CAF50; /* Green color remains the same */
 }
-
 body {
     background: var(--light2);
     color: var(--light1);
     transition: background 0.3s, color 0.3s;
 }
-
 header {
     z-index: 999;
     position: absolute;
@@ -57,25 +51,21 @@ header {
     transition: 0.5s ease;
     background: var(--light6);
 }
-
 header .left {
     display: flex;
     align-items: center;
 }
-
 header .right {
     display: flex;
     align-items: center;
     margin-left: auto; /* Pushes the right section to the far right */
 }
-
 .container {
     display: flex;
     align-items: center;
     position: relative;
     margin-left: 15px; /* Shift the search bar 15px to the right */
 }
-
 #search_bar {
     width: 250px;
     padding: 10px 20px;
@@ -88,16 +78,13 @@ header .right {
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 #search_bar::placeholder {
     color: #ddd;
 }
-
 #search_bar:focus {
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-
 #search_button {
     background: none;
     border: none;
@@ -106,17 +93,14 @@ header .right {
     transition: all 0.3s ease;
     margin-left: -35px; /* Adjust this value to position the button correctly */
 }
-
 #search_button img {
     width: 20px;
     height: 20px;
     filter: invert(100%);
 }
-
 #search_button:hover img {
     filter: invert(70%);
 }
-
 header .brand {
     color: var(--light1);
     font-size: 1.5em;
@@ -124,22 +108,18 @@ header .brand {
     text-transform: uppercase;
     text-decoration: none;
 }
-
 header .navigation {
     display: flex;
     align-items: center;
 }
-
 header .navigation .navigation-items {
     list-style: none;
     display: flex;
     align-items: center;
 }
-
 header .navigation .navigation-items li {
     margin-left: 30px;
 }
-
 header .navigation .navigation-items a {
     position: relative;
     color: var(--light1);
@@ -148,7 +128,6 @@ header .navigation .navigation-items a {
     text-decoration: none;
     transition: 0.3s ease;
 }
-
 header .navigation .navigation-items a:before {
     content: '';
     position: absolute;
@@ -159,11 +138,9 @@ header .navigation .navigation-items a:before {
     left: 0;
     transition: 0.3s ease;
 }
-
 header .navigation .navigation-items a:hover:before {
     width: 100%;
 }
-
 #theme_changer {
     z-index: 888;
     display: flex;
@@ -171,7 +148,6 @@ header .navigation .navigation-items a:hover:before {
     cursor: pointer;
     margin-left: 20px; /* Adjust margin for spacing */
 }
-
 .menu-btn {
     background: url(menu.png) no-repeat;
     background-size: 30px;
@@ -183,7 +159,6 @@ header .navigation .navigation-items a:hover:before {
     margin-left: 20px; /* Adjust margin for spacing */
     display: none; /* Hide menu button by default */
 }
-
 .menu-btn.active {
     z-index: 999;
     background: url(close.png) no-repeat;
@@ -191,13 +166,11 @@ header .navigation .navigation-items a:hover:before {
     background-position: center;
     transition: 0.3s ease;
 }
-
 .auth-buttons {
     display: flex;
     align-items: center;
     margin-left: 20px;
 }
-
 .auth-buttons .btn {
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -210,16 +183,13 @@ header .navigation .navigation-items a:hover:before {
     margin-left: 15px;
     transition: 0.3s ease;
 }
-
 .auth-buttons .btn:hover {
     background: rgba(255, 255, 255, 0.5);
     color: var(--light1);
 }
-
 section {
     padding: 100px 200px;
 }
-
 .home {
     position: relative;
     width: 100%;
@@ -229,7 +199,6 @@ section {
     flex-direction: column;
     background: var(--light2);
 }
-
 .home:before {
     z-index: 777;
     content: '';
@@ -240,7 +209,6 @@ section {
     top: 0;
     left: 0;
 }
-
 .home .content {
     z-index: 888;
     color: var(--light1);
@@ -248,11 +216,9 @@ section {
     margin-top: 50px;
     display: none;
 }
-
 .home .content.active {
     display: block;
 }
-
 .home .content h1 {
     font-size: 4em;
     font-weight: 900;
@@ -261,17 +227,14 @@ section {
     line-height: 75px;
     margin-bottom: 40px;
 }
-
 .home .content h1 span {
     font-size: 1.2em;
     font-weight: 600;
     color: var(--light12); /* Green color */
 }
-
 .home .content p {
     margin-bottom: 65px;
 }
-
 .home .content a {
     background: var(--light12); /* Green color */
     padding: 15px 35px;
@@ -281,7 +244,6 @@ section {
     text-decoration: none;
     border-radius: 2px;
 }
-
 .home .media-icons {
     z-index: 888;
     position: absolute;
@@ -290,22 +252,18 @@ section {
     flex-direction: column;
     transition: 0.5s ease;
 }
-
 .home .media-icons a {
     color: var(--light1);
     font-size: 1.6em;
     transition: 0.3s ease;   
 }
-
 .home .media-icons a:not(:last-child) {
     margin-bottom: 20px;
 }
-
 .home .media-icons a:hover {
     transform: scale(1.3);
     color: var(--light12); /* Green color */
 }
-
 .home img {
     z-index: 000;
     position: absolute;
@@ -316,7 +274,6 @@ section {
     height: 100%;
     object-fit: cover; 
 }
-
 .slider-navigation {
     z-index: 888;
     position: relative;
@@ -326,7 +283,6 @@ section {
     transform: translateY(80px);
     margin-bottom: 12px;
 }
-
 .slider-navigation .nav-btn {
     width: 12px;
     height: 12px;
@@ -336,48 +292,38 @@ section {
     box-shadow: 0 0 2px var(--light7);
     transition: 0.3s ease;
 }
-
 .slider-navigation .nav-btn.active {
     background: var(--light2);
 }
-
 .slider-navigation .nav-btn:not(:last-child) {
     margin-right: 20px;
 }
-
 .slider-navigation .nav-btn:hover {
     transform: scale(1.2);
 }
-
 .img-slide {
     position: absolute;
     width: 100%;
     clip-path: circle(0% at 0 50%);
 }
-
 .img-slide.active {
     clip-path: circle(150.0% at 0 50%);
     transition: 1s ease;
     transition-property: clip-path;
 }
-
 @media (max-width: 1040px) {
     header {
         padding: 12px 20px;
     }
-
     section {
         padding: 100px 20px;
     }
-
     .home .media-icons {
         right: 15px;
     }
-
     header .navigation {
         display: none;
     }
-
     header .navigation.active {
         position: fixed;
         width: 100%;
@@ -389,23 +335,19 @@ section {
         align-items: center;
         background: var(--light10); /* Updated background color */
     }
-
     header .navigation .navigation-items {
         flex-direction: column;
         align-items: center;
     }
-
     header .navigation .navigation-items a {
         color: var(--light9);
         font-size: 1.2em;
         margin: 20px;
     }
-
     header .navigation .navigation-items a:before {
         background: var(--light9);
         height: 5px;
     }
-
     header .navigation .navigation-items {
         background: var(--light8);
         width: 600px;
@@ -418,22 +360,18 @@ section {
         border-radius: 5px;
         box-shadow: 0 5px 25px rgb(255, 255, 255);
     }
-
     #theme_changer {
         right: 70px;
     }
-
     .menu-btn {
         display: block; /* Show menu button when scaled down */
     }
-
     .container {
         display: flex;
         align-items: center;
         position: relative;
         margin-left: 15px; /* Ensure the search bar is shifted 15px to the right */
     }
-
     #search_bar {
         width: 250px;
         padding: 10px 20px;
@@ -446,7 +384,6 @@ section {
         transition: all 0.3s ease;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
     #search_button {
         background: none;
         border: none;
@@ -455,13 +392,11 @@ section {
         transition: all 0.3s ease;
         margin-left: -35px; /* Ensure the button stays in the same position */
     }
-
     .auth-buttons {
         display: flex;
         align-items: center;
         margin-left: 20px;
     }
-
     .auth-buttons .btn {
         display: block; /* Ensure login and signup buttons are visible */
         background: rgba(255, 255, 255, 0.2);
@@ -475,13 +410,11 @@ section {
         margin-left: 15px;
         transition: 0.3s ease;
     }
-
     .auth-buttons .btn:hover {
         background: rgba(255, 255, 255, 0.5);
         color: var(--light1);
     }
 }
-
 .navigation .btn {
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -494,7 +427,6 @@ section {
     margin-left: 15px;
     transition: 0.3s ease;
 }
-
 .navigation .btn:hover {
     background: rgba(255, 255, 255, 0.5);
     color: var(--light1);
