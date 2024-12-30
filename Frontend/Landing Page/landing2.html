@@ -28,13 +28,13 @@
                     <li><a href="#">Explore</a></li>
                     <li><a href="#">Gallery</a></li>
                     <li><a href="#">Contact</a></li>
-                    <li></li><a href="../Profile/profile.html">Profile</a></li>
+                    <li><a href="../Profile/profile.html">Profile</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <a href="../Signup/registration.html#login" class="btn">Login</a>
-                <a href="../Signup/registration.html#register" class="btn">Sign Up</a>
-                <button id="logoutButton" class="Logout btn">Logout</button>
+                <a href="../Signup/registration.html#login" class="btn" id="loginButton">Login</a>
+                <a href="../Signup/registration.html#register" class="btn" id="signupButton">Sign Up</a>
+                <button id="logoutButton" class="Logout btn" style="display: none;">Logout</button>
             </div>
         </div>
     </header>
@@ -149,6 +149,27 @@
                 // Redirect to the login page or home page
             window.location.replace('../Signup/registration.html');
             });
+            document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const loginButton = document.getElementById('loginButton');
+            const signupButton = document.getElementById('signupButton');
+            const logoutButton = document.getElementById('logoutButton');
+
+            if (token) {
+                loginButton.style.display = 'none';
+                signupButton.style.display = 'none';
+                logoutButton.style.display = 'block';
+            } else {
+                loginButton.style.display = 'block';
+                signupButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+            }
+
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                window.location.reload();
+            });
+        });
     </script>
 </body>
 </html>
