@@ -1,0 +1,130 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #2696E9;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .brand {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+}
+
+header .navigation {
+    display: flex;
+    align-items: center;
+}
+
+header .navigation .navigation-items {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+header .navigation .navigation-items li {
+    margin-left: 30px;
+}
+
+header .navigation .navigation-items a {
+    color: #fff;
+    font-size: 1em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+header .navigation .navigation-items a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #2696E9;
+}
+
+.location-info p {
+    font-size: 1em;
+    margin: 10px 0;
+}
+
+.services .service-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.services .service-item {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px);
+}
+
+.services .service-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.services .service-item p {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.btn {
+    background: #2696E9;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #1680AC;
+}
+
+footer {
+    background: #2696E9;
+    color: #fff;
+    text-align: center;
+    padding: 5px; /* Reduced padding for a smaller footer bar */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    font-size: 0.6em; /* Smaller font size for the footer text */
+    margin: 0; /* Remove margin for a more compact footer */
+}

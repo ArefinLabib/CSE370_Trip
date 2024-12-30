@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Details</title>
+    <link rel="stylesheet" href="hotel.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <a href="#" class="brand">Travel</a>
+            <nav class="navigation">
+                <ul class="navigation-items">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hotel-info">
+            <h2>Hotel Name</h2>
+            <p>Description of the hotel. This hotel offers luxurious rooms, excellent service, and a prime location.</p>
+        </section>
+        <section class="hotel-gallery">
+            <h2>Gallery</h2>
+            <div class="slideshow-container" id="slideshow-container">
+                <!-- Slideshow images will be inserted here dynamically -->
+            </div>
+            <br>
+            <div style="text-align:center" id="dots-container">
+                <!-- Dots will be inserted here dynamically -->
+            </div>
+        </section>
+        <section class="upload-form">
+            <h2>Add to Gallery</h2>
+            <form id="uploadForm">
+                <input type="file" id="imageInput" accept="image/*" required>
+                <input type="text" id="descriptionInput" placeholder="Description" required>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+        </section>
+        <section class="hotel-rooms">
+            <h2>Rooms</h2>
+            <div class="room-items" id="room-items">
+                <!-- Room items will be inserted here dynamically -->
+            </div>
+        </section>
+        <section class="upload-room-form">
+            <h2>Add a Room</h2>
+            <form id="uploadRoomForm">
+                <input type="file" id="roomImageInput" accept="image/*" required>
+                <input type="text" id="roomNameInput" placeholder="Room Name" required>
+                <input type="text" id="roomDescriptionInput" placeholder="Room Description" required>
+                <button type="submit" class="btn">Upload Room</button>
+            </form>
+        </section>
+        <section class="hotel-amenities">
+            <h2>Amenities</h2>
+            <ul>
+                <li><i class='bx bx-wifi'></i> Free Wi-Fi</li>
+                <li><i class='bx bx-swim'></i> Swimming Pool</li>
+                <li><i class='bx bx-dumbbell'></i> Gym</li>
+                <li><i class='bx bx-restaurant'></i> Restaurant</li>
+                <!-- Repeat for more amenities -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Travel. All rights reserved.</p>
+    </footer>
+    <script>
+        let slideIndex = 0;
+        const slides = [];
+        const dots = [];
+
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const file = document.getElementById('imageInput').files[0];
+            const description = document.getElementById('descriptionInput').value;
+
+            if (file && description) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const slide = document.createElement('div');
+                    slide.className = 'mySlides fade';
+                    slide.innerHTML = `
+                        <img src="${e.target.result}" style="width:100%">
+                        <div class="text">${description}</div>
+                    `;
+                    document.getElementById('slideshow-container').appendChild(slide);
+                    slides.push(slide);
+
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    document.getElementById('dots-container').appendChild(dot);
+                    dots.push(dot);
+
+                    showSlides();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('uploadRoomForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const file = document.getElementById('roomImageInput').files[0];
+            const roomName = document.getElementById('roomNameInput').value;
+            const roomDescription = document.getElementById('roomDescriptionInput').value;
+
+            if (file && roomName && roomDescription) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const roomItem = document.createElement('div');
+                    roomItem.className = 'room-item';
+                    roomItem.innerHTML = `
+                        <img src="${e.target.result}" alt="${roomName}">
+                        <h3>${roomName}</h3>
+                        <p>${roomDescription}</p>
+                    `;
+                    document.getElementById('room-items').appendChild(roomItem);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function showSlides() {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = 'none';
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(' active', '');
+            }
+            if (slides.length > 0) {
+                slides[slideIndex-1].style.display = 'block';
+                dots[slideIndex-1].className += ' active';
+            }
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+    </script>
+</body>
+</html>
