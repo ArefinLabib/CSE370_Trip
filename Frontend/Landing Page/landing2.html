@@ -28,11 +28,13 @@
                     <li><a href="#">Explore</a></li>
                     <li><a href="#">Gallery</a></li>
                     <li><a href="#">Contact</a></li>
+                    <li></li><a href="../Profile/profile.html">Profile</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <a href="http://127.0.0.1:5500/registration.html#login" class="btn">Login</a>
-                <a href="http://127.0.0.1:5500/registration.html#register" class="btn">Sign Up</a>
+                <a href="../Signup/registration.html#login" class="btn">Login</a>
+                <a href="../Signup/registration.html#register" class="btn">Sign Up</a>
+                <button id="logoutButton" class="Logout btn">Logout</button>
             </div>
         </div>
     </header>
@@ -140,6 +142,13 @@
                 theme_changer.src = "dark.png";
             }
         }
+            document.getElementById('logoutButton').addEventListener('click', () => {
+                // Clear the JWT token from localStorage
+            localStorage.removeItem('token');
+
+                // Redirect to the login page or home page
+            window.location.replace('../Signup/registration.html');
+            });
     </script>
 </body>
 </html>
