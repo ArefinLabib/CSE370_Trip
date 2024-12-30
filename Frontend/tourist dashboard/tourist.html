@@ -13,20 +13,20 @@
             <a href="#" class="brand">Travel</a>
             <nav class="navigation">
                 <ul class="navigation-items">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="../Landing Page/landing.html">Home</a></li>
                     <li><a href="#">Explore</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="#" id="logoutLink">Logout</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <main>
         <section class="profile">
-            <h2>Welcome, [User Name]</h2>
+            <h2>Welcome, <span id="username">[User Name]</span></h2>
             <div class="profile-info">
-                <p><strong>Email:</strong> user@example.com</p>
-                <p><strong>Role:</strong> Tourist</p>
+                <p><strong>Username:</strong> <span id="username2">sername</span></p>
+                <p><strong>Email:</strong> <span id="userEmail">user@example.com</span></p>
+                <p><strong>Account Type:</strong> <span id="userRole"></span></p>
             </div>
         </section>
         <section class="wishlist">
@@ -55,5 +55,45 @@
     <footer>
         <p>&copy; 2023 Travel. All rights reserved.</p>
     </footer>
+    <script>
+        const token = localStorage.getItem('token');
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch('http://localhost:8081/profile/profile', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                console.log(data);
+                    
+
+                if (response.ok) {
+                    document.getElementById('username').textContent = data.userName;
+                    document.getElementById('username2').textContent = data.userName;
+                    document.getElementById('userEmail').textContent = data.email;
+                    document.getElementById('userRole').textContent = data.role;
+
+
+                } else {
+                    alert(data.message || 'Failed to fetch user profile.');
+                }
+            } catch (error) {
+                alert('Error fetching user profile.');
+                console.error(error);
+            }
+        }
+
+        document.getElementById('logoutLink').addEventListener('click', (event) => {
+            event.preventDefault();
+            localStorage.removeItem('token');
+            window.location.replace('../Signup/registration.html');
+        });
+
+        fetchUserProfile();
+    </script>
 </body>
 </html>
