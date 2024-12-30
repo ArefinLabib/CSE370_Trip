@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations</title>
+    <link rel="stylesheet" href="locationList.css">
+</head>
+<body>
+    <header>
+        <a href="#" class="brand">Travel</a>
+        <nav class="navigation">
+            <ul class="navigation-items">
+                <li><a href="../Landing Page/landing.html">Home</a></li>
+                <li><a href="#" id="profileLink">Profile</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="locations">
+            <h1>Explore Places You Can Visit</h1>
+            <div id="locationList" class="location-list"></div>
+            <button id="loadMoreButton">Load More</button>
+        </section>
+    </main>
+    <script>
+        let currentPage = 1;
+        const limit = 5;
+
+        async function fetchLocations(page, limit) {
+            try {
+                const response = await fetch(`http://localhost:8081/location/locations?page=${page}&limit=${limit}`);
+                const data = await response.json();
+                return data.locations;
+            } catch (error) {
+                console.error('Error fetching locations:', error);
+                return [];
+            }
+        }
+
+        function displayLocations(locations) {
+            const locationList = document.getElementById('locationList');
+            locations.forEach(location => {
+                const locationItem = document.createElement('div');
+                locationItem.className = 'location-item';
+                locationItem.innerHTML = `
+                    <h2>${location.locationName}</h2>
+                    <p>${location.description}</p>
+                `;
+                locationList.appendChild(locationItem);
+            });
+        }
+
+        async function loadMoreLocations() {
+            const locations = await fetchLocations(currentPage, limit);
+            displayLocations(locations);
+            currentPage++;
+        }
+
+        document.getElementById('loadMoreButton').addEventListener('click', loadMoreLocations);
+
+        async function setProfileLink() {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            try {
+                const response = await fetch('http://localhost:8081/profile/profile', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    const profileLink = document.getElementById('profileLink');
+                    if (data.role === 'Service') {
+                        profileLink.href = '../Profile/profile.html';
+                    } else if (data.role === 'Tourist') {
+                        profileLink.href = '../tourist dashboard/tourist.html';
+                    }
+                } else {
+                    console.error('Failed to fetch user profile:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        }
+        loadMoreLocations();
+        setProfileLink();
+    </script>
+</body>
+</html>

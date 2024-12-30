@@ -1,4 +1,4 @@
-CREATE TABLE accountst (
+CREATE TABLE accounts (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     userName VARCHAR(100),
     password VARCHAR(100),

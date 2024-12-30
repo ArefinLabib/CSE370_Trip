@@ -25,7 +25,7 @@
                 <ul class="navigation-items">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Explore</a></li>
+                    <li><a href="../Explore/locationList.html">Explore</a></li>
                     <li><a href="#">Gallery</a></li>
                     <li><a href="#">Contact</a></li>
                     <li><a href="#" id="profileLink">Profile</a></li>
@@ -160,9 +160,13 @@
 
                         if (response.ok) {
                             if (data.role === 'Service') {
-                                window.location.href = '../Profile/profile.html';
+                                setTimeout(() => {
+                                    window.location.href = '../Profile/profile.html';
+                                }, 1500);
                             } else if (data.role === 'Tourist') {
-                                window.location.href = '../tourist dashboard/tourist.html';
+                                setTimeout(() => {
+                                    window.location.href = '../tourist dashboard/tourist.html';
+                                }, 1000);
                             } else {
                                 alert('Invalid user role.');
                             }
