@@ -7,12 +7,15 @@ exports.getUserBusinesses = async (req, res) => {
             return res.status(403).json({ message: 'Access denied. Only business accounts can view their businesses.' });
         }
 
+        // console.log(req.user.ID);
+        
         // Fetch providerID
-        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.id]);
+        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.ID]);
         if (!provider.length) {
             return res.status(404).json({ message: 'Provider not found.' });
         }
         const providerID = provider[0].providerID;
+        
 
         // Fetch all services owned by the provider
         const [businesses] = await db.execute(

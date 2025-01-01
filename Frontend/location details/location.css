@@ -128,3 +128,68 @@ footer p {
     font-size: 0.6em; /* Smaller font size for the footer text */
     margin: 0; /* Remove margin for a more compact footer */
 }
+
+/* Review Styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+.ratings {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.ratings i {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.ratings i.checked {
+    color: #f39c12;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 10px 0;
+    resize: vertical;
+}
+
+button.btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button.btn:hover {
+    background-color: #555;
+}
+
+img {
+    vertical-align: middle;
+    margin-left: 10px;
+}

@@ -2,7 +2,9 @@ const db = require('../Database/db');
 
 exports.getUserProfile = async (req, res) => {
     try {
-        const userID = req.user.id;
+        const userID = req.user.ID;
+        console.log(userID);
+        
 
         const [userResult] = await db.execute('SELECT userName, email, role FROM accounts WHERE ID = ?', [userID]);
         if (userResult.length === 0) {

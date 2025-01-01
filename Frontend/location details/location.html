@@ -6,6 +6,8 @@
     <title>Location Details</title>
     <link rel="stylesheet" href="location.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="review.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -13,8 +15,8 @@
             <a href="#" class="brand">Travel</a>
             <nav class="navigation">
                 <ul class="navigation-items">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Explore</a></li>
+                    <li><a href="../Landing Page/landing.html">Home</a></li>
+                    <li><a href="../Explore/locationList.html">Explore</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Logout</a></li>
                 </ul>
@@ -23,39 +25,161 @@
     </header>
     <main>
         <section class="location-info">
-            <h2>Location Name</h2>
-            <p>Description of the location.</p>
+            <h2 id="locationName">Location Name</h2>
+            <p id="locationDescription">Description of the location.</p>
+            <p id="locationRating"></p>
         </section>
         <section class="services">
-            <h2>Hotels and Restaurants</h2>
-            <div class="service-items" id="service-items">
-                <!-- Service items will be inserted here dynamically -->
+            <h2>Hotels</h2>
+            <div class="service-items" id="hotel-items">
+            </div>
+            <h2>Restaurants</h2>
+            <div class="service-items" id="restaurant-items">
             </div>
         </section>
+        <section class="reviews">
+            <h2>Reviews</h2>
+            <div id="reviewList" class="review-list"></div>
+            <div class="container">
+                <div class="wrapper">
+                    <div class="left">
+                        <h1> 
+                            Rate Your Experience
+                            <img src="../smile.svg" alt="Review Icon" style="height: 3rem"/>
+                        </h1>
+                        <ul class="ratings">
+                            <i class="fa-solid fa-star" id="star-1"></i>
+                            <i class="fa-solid fa-star" id="star-2"></i>
+                            <i class="fa-solid fa-star" id="star-3"></i>
+                            <i class="fa-solid fa-star" id="star-4"></i>
+                            <i class="fa-solid fa-star" id="star-5"></i>
+                        </ul>
+                        <h3>Tell us more about your overall experience</h3>
+                        <textarea id="reviewText" rows="10" placeholder="Write your review here..."></textarea>
+                        <button id="submit-feedback">Submit Feedback</button>
+                    </div>
+                </div>
+            </div>
     </main>
     <footer>
         <p>&copy; 2023 Travel. All rights reserved.</p>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const locationId = '123'; // Replace with the actual location ID
-            fetch(`https://api.example.com/services?locationId=${locationId}`)
-                .then(response => response.json())
-                .then(data => {
-                    const serviceItemsContainer = document.getElementById('service-items');
-                    data.forEach(service => {
+        document.addEventListener('DOMContentLoaded', async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const locationId = urlParams.get('locationId');
+            if (!locationId) {
+                alert('Location ID is missing.');
+                return;
+            }
+
+            try {
+                const [locationResponse, reviewsResponse, servicesResponse] = await Promise.all([
+                    fetch(`http://localhost:8081/location/details?locationId=${locationId}`),
+                    fetch(`http://localhost:8081/location/reviews?locationId=${locationId}`),
+                    fetch(`http://localhost:8081/location/services?locationId=${locationId}`)
+                ]);
+
+                const locationData = await locationResponse.json();
+                const reviewsData = await reviewsResponse.json();
+                const servicesData = await servicesResponse.json();
+
+                if (locationResponse.ok) {
+                    document.getElementById('locationName').textContent = locationData.locationName;
+                    document.getElementById('locationDescription').textContent = locationData.description;
+                    document.getElementById('locationRating').textContent = `Rating: ${locationData.Rating}`;
+                } else {
+                    alert(locationData.message || 'Failed to fetch location details.');
+                }
+
+                if (reviewsResponse.ok) {
+                    const reviewList = document.getElementById('reviewList');
+                    reviewsData.reviews.forEach(review => {
+                        const reviewItem = document.createElement('div');
+                        reviewItem.className = 'review-item';
+                        reviewItem.innerHTML = `
+                            <p><strong>${review.userName}:</strong> ${review.description}</p>
+                            <p>Rating: ${review.rating} stars</p>
+                        `;
+                        reviewList.appendChild(reviewItem);
+                    });
+                } else {
+                    alert(reviewsData.message || 'Failed to fetch reviews.');
+                }
+
+                if (servicesResponse.ok) {
+                    const hotelItemsContainer = document.getElementById('hotel-items');
+                    const restaurantItemsContainer = document.getElementById('restaurant-items');
+                    servicesData.services.forEach(service => {
                         const serviceItem = document.createElement('div');
                         serviceItem.className = 'service-item';
                         serviceItem.innerHTML = `
                             <h3>${service.name}</h3>
-                            <p>Location: ${service.locationName}</p>
+                            <p>${service.description}</p>
                             <p>Rating: ${service.rating} stars</p>
-                            <button class="btn" onclick="viewDetails('${service.id}')">View Details</button>
+                            <button class="btn" onclick="viewDetails('${service.serviceID}')">View Details</button>
                         `;
-                        serviceItemsContainer.appendChild(serviceItem);
+                        if (service.serviceType === 'hotel') {
+                            hotelItemsContainer.appendChild(serviceItem);
+                        } else if (service.serviceType === 'restaurant') {
+                            restaurantItemsContainer.appendChild(serviceItem);
+                        }
                     });
-                })
-                .catch(error => console.error('Error fetching services:', error));
+                } else {
+                    alert(servicesData.message || 'Failed to fetch services.');
+                }
+
+                // rating selection and submission
+                const stars = document.querySelectorAll('.fa-star');
+                let rating = 0;
+
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        rating = index + 1;
+                        stars.forEach((s, i) => {
+                            if (i < rating) {
+                                s.classList.add('checked');
+                            } else {
+                                s.classList.remove('checked');
+                            }
+                        });
+                    });
+                });
+
+                document.getElementById('submit-feedback').addEventListener('click', async function() {
+                    const reviewText = document.getElementById('reviewText').value;
+                    const token = localStorage.getItem('token');
+
+                    try {
+                        const response = await fetch('http://localhost:8081/location/addreview', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${token}`
+                            },
+                            body: JSON.stringify({
+                                locationId,
+                                description: reviewText,
+                                rating: rating
+                            })
+                        });
+
+                        const data = await response.json();
+                        if (response.ok) {
+                            alert('Review submitted successfully.');
+                            location.reload();
+                        } else {
+                            alert(data.message || 'Failed to submit review.');
+                        }
+                    } catch (error) {
+                        console.error('Error submitting review:', error);
+                        alert('Error submitting review.');
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching location details:', error);
+                alert('Error fetching location details.');
+            }
         });
 
         function viewDetails(serviceId) {

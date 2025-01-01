@@ -41,13 +41,18 @@
 
         function displayLocations(locations) {
             const locationList = document.getElementById('locationList');
+            locationList.innerHTML = ''; 
             locations.forEach(location => {
                 const locationItem = document.createElement('div');
                 locationItem.className = 'location-item';
                 locationItem.innerHTML = `
                     <h2>${location.locationName}</h2>
                     <p>${location.description}</p>
+                    <p>Rating: ${location.Rating ? location.Rating.toFixed(1) : 'No ratings yet'}</p>
                 `;
+                locationItem.addEventListener('click', () => {
+                    window.location.href = `../location details/location.html?locationId=${location.locationID}`;
+                });
                 locationList.appendChild(locationItem);
             });
         }

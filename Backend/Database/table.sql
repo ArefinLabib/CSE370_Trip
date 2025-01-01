@@ -26,6 +26,7 @@ CREATE TABLE Location (
     locationID INT PRIMARY KEY AUTO_INCREMENT,
     locationName VARCHAR(100),
     description TEXT(500)
+    rating FLOAT;
 );
 
 CREATE TABLE Service (
@@ -57,7 +58,7 @@ CREATE TABLE Wishlist (
     touristID INT NOT NULL,
     locationID INT NOT NULL,
     serviceID INT NOT NULL,
-    FOREIGN KEY (touristID) REFERENCES Tourist(touristID),
+    FOREIGN KEY (touristID) REFERENCES TouristDetails(touristID),
     FOREIGN KEY (locationID) REFERENCES Location(locationID),
     FOREIGN KEY (serviceID) REFERENCES Hotels(serviceID)
 );
@@ -65,10 +66,12 @@ CREATE TABLE Wishlist (
 CREATE TABLE Reviews (
 	reviewId INT AUTO_INCREMENT PRIMARY KEY,
 	userID INT NOT NULL,
-	serviceID INT NOT NULL,
+	serviceID INT,
+    locationID INT NOT NULL,
 	rating INT NOT NULL,
 	description TEXT(500),
-	FOREIGN KEY (userID) REFERENCES Tourist(touristID),
+    FOREIGN KEY (locationID) REFERENCES Location(locationID),
+	FOREIGN KEY (userID) REFERENCES TouristDetails(touristID),
 	FOREIGN KEY (serviceID) REFERENCES Service(serviceID)
 );
 
