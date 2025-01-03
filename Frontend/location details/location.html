@@ -60,6 +60,7 @@
                     </div>
                 </div>
             </div>
+        </section>
     </main>
     <footer>
         <p>&copy; 2023 Travel. All rights reserved.</p>
@@ -117,10 +118,11 @@
                             <h3>${service.name}</h3>
                             <p>${service.description}</p>
                             <p>Rating: ${service.rating} stars</p>
-                            <button class="btn" onclick="viewDetails('${service.serviceID}')">View Details</button>
-                        `;
+                            <a class="btn" href="../hotel details/hotel.html?serviceId=${service.serviceID}">View Details</a>
+                            `;
                         if (service.serviceType === 'hotel') {
                             hotelItemsContainer.appendChild(serviceItem);
+
                         } else if (service.serviceType === 'restaurant') {
                             restaurantItemsContainer.appendChild(serviceItem);
                         }

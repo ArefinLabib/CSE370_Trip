@@ -14,7 +14,7 @@ exports.authenticate = async (req, res, next) => {
             return res.status(401).json({ message: 'Invalid token.' });
         }
         req.user = userResult[0];
-        console.log('Authenticated user:', req.user); // Add this line for debugging
+        // console.log('Authenticated user:', req.user); // Add this line for debugging
         next();
     } catch (error) {
         res.status(403).json({ message: 'Invalid or expired token.' });

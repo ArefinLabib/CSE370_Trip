@@ -6,6 +6,7 @@ const businessRoutes = require('./routes/business_route');
 const adminRoutes = require('./routes/admin_route');
 const profileRoutes = require('./routes/profile_route');
 const locationRoutes = require('./routes/location_route');
+const hotelRoutes = require('./routes/hotel_route');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/business', businessRoutes);
 app.use('/admin', adminRoutes);
 app.use('/profile', profileRoutes); 
 app.use('/location', locationRoutes);
+app.use('/hotel', hotelRoutes);
 
 // Server
 const PORT = process.env.PORT || 3000;

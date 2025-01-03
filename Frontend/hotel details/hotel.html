@@ -6,6 +6,8 @@
     <title>Hotel Details</title>
     <link rel="stylesheet" href="hotel.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="review.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -13,8 +15,8 @@
             <a href="#" class="brand">Travel</a>
             <nav class="navigation">
                 <ul class="navigation-items">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Explore</a></li>
+                    <li><a href="../Landing Page/landing.html">Home</a></li>
+                    <li><a href="../Explore/locationList.html">Explore</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Logout</a></li>
                 </ul>
@@ -25,124 +27,133 @@
         <section class="hotel-info">
             <h2>Hotel Name</h2>
             <p>Description of the hotel. This hotel offers luxurious rooms, excellent service, and a prime location.</p>
+            <p id="hotelRating">Rating</p>
+            <p id="type"></p>
         </section>
-        <section class="hotel-gallery">
-            <h2>Gallery</h2>
-            <div class="slideshow-container" id="slideshow-container">
-                <!-- Slideshow images will be inserted here dynamically -->
+
+        <section class="reviews">
+            <h2>Reviews</h2>
+            <div id="reviewList" class="review-list"></div>
+            <div class="container">
+                <div class="wrapper">
+                    <div class="left">
+                        <h1> 
+                            Rate Your Experience
+                            <img src="../smile.svg" alt="Review Icon" style="height: 3rem"/>
+                        </h1>
+                        <ul class="ratings">
+                            <i class="fa-solid fa-star" id="star-1"></i>
+                            <i class="fa-solid fa-star" id="star-2"></i>
+                            <i class="fa-solid fa-star" id="star-3"></i>
+                            <i class="fa-solid fa-star" id="star-4"></i>
+                            <i class="fa-solid fa-star" id="star-5"></i>
+                        </ul>
+                        <h3>Tell us more about your overall experience</h3>
+                        <textarea id="reviewText" rows="10" placeholder="Write your review here..."></textarea>
+                        <button id="submit-feedback">Submit Feedback</button>
+                    </div>
+                </div>
             </div>
-            <br>
-            <div style="text-align:center" id="dots-container">
-                <!-- Dots will be inserted here dynamically -->
-            </div>
-        </section>
-        <section class="upload-form">
-            <h2>Add to Gallery</h2>
-            <form id="uploadForm">
-                <input type="file" id="imageInput" accept="image/*" required>
-                <input type="text" id="descriptionInput" placeholder="Description" required>
-                <button type="submit" class="btn">Upload</button>
-            </form>
-        </section>
-        <section class="hotel-rooms">
-            <h2>Rooms</h2>
-            <div class="room-items" id="room-items">
-                <!-- Room items will be inserted here dynamically -->
-            </div>
-        </section>
-        <section class="upload-room-form">
-            <h2>Add a Room</h2>
-            <form id="uploadRoomForm">
-                <input type="file" id="roomImageInput" accept="image/*" required>
-                <input type="text" id="roomNameInput" placeholder="Room Name" required>
-                <input type="text" id="roomDescriptionInput" placeholder="Room Description" required>
-                <button type="submit" class="btn">Upload Room</button>
-            </form>
-        </section>
-        <section class="hotel-amenities">
-            <h2>Amenities</h2>
-            <ul>
-                <li><i class='bx bx-wifi'></i> Free Wi-Fi</li>
-                <li><i class='bx bx-swim'></i> Swimming Pool</li>
-                <li><i class='bx bx-dumbbell'></i> Gym</li>
-                <li><i class='bx bx-restaurant'></i> Restaurant</li>
-                <!-- Repeat for more amenities -->
-            </ul>
-        </section>
+        </section> 
     </main>
     <footer>
         <p>&copy; 2023 Travel. All rights reserved.</p>
     </footer>
     <script>
-        let slideIndex = 0;
-        const slides = [];
-        const dots = [];
+document.addEventListener('DOMContentLoaded', async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceID = urlParams.get('serviceId');
+    // console.log(serviceID);
+    
+    if (!serviceID) {
+        alert('Service ID is missing.');
+        return;
+    }
 
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const file = document.getElementById('imageInput').files[0];
-            const description = document.getElementById('descriptionInput').value;
+    try {
+        const [hotelResponse, reviewsResponse] = await Promise.all([
+            fetch(`http://localhost:8081/hotel/details?serviceId=${serviceID}`),
+            fetch(`http://localhost:8081/hotel/reviews?serviceId=${serviceID}`)
+        ]);
+        const hotelData = await hotelResponse.json();
+        const reviewsData = await reviewsResponse.json();
 
-            if (file && description) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const slide = document.createElement('div');
-                    slide.className = 'mySlides fade';
-                    slide.innerHTML = `
-                        <img src="${e.target.result}" style="width:100%">
-                        <div class="text">${description}</div>
-                    `;
-                    document.getElementById('slideshow-container').appendChild(slide);
-                    slides.push(slide);
-
-                    const dot = document.createElement('span');
-                    dot.className = 'dot';
-                    document.getElementById('dots-container').appendChild(dot);
-                    dots.push(dot);
-
-                    showSlides();
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('uploadRoomForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const file = document.getElementById('roomImageInput').files[0];
-            const roomName = document.getElementById('roomNameInput').value;
-            const roomDescription = document.getElementById('roomDescriptionInput').value;
-
-            if (file && roomName && roomDescription) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const roomItem = document.createElement('div');
-                    roomItem.className = 'room-item';
-                    roomItem.innerHTML = `
-                        <img src="${e.target.result}" alt="${roomName}">
-                        <h3>${roomName}</h3>
-                        <p>${roomDescription}</p>
-                    `;
-                    document.getElementById('room-items').appendChild(roomItem);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function showSlides() {
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = 'none';
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(' active', '');
-            }
-            if (slides.length > 0) {
-                slides[slideIndex-1].style.display = 'block';
-                dots[slideIndex-1].className += ' active';
-            }
-            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        if (hotelResponse.ok) {
+            document.querySelector('.hotel-info h2').textContent = hotelData.name;
+            document.querySelector('.hotel-info p').textContent = hotelData.description;
+            document.getElementById('hotelRating').textContent = `Rating: ${hotelData.rating}`;
+            document.getElementById('type').textContent = `Facility: ${hotelData.serviceType}`;
+        } else {
+            alert(hotelData.message || 'Failed to fetch hotel details.');
         }
+
+        if (reviewsResponse.ok) {
+            const reviewList = document.getElementById('reviewList');
+            reviewsData.reviews.forEach(review => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                reviewItem.innerHTML = `
+                    <p><strong>${review.userName}:</strong> ${review.description}</p>
+                    <p>Rating: ${review.rating} stars</p>
+                `;
+                reviewList.appendChild(reviewItem);
+            });
+        } else {
+            alert(reviewsData.message || 'Failed to fetch reviews.');
+        }
+    } catch (error) {
+        console.error('Error fetching hotel details:', error);
+        alert('Error fetching hotel details.');
+    }
+
+    // Rating selection and submission
+    const stars = document.querySelectorAll('.fa-star');
+    let rating = 0;
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            rating = index + 1;
+            stars.forEach((s, i) => {
+                if (i < rating) {
+                    s.classList.add('checked');
+                } else {
+                    s.classList.remove('checked');
+                }
+            });
+        });
+    });
+
+    document.getElementById('submit-feedback').addEventListener('click', async function() {
+        const reviewText = document.getElementById('reviewText').value;
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch('http://localhost:8081/hotel/addreview', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    serviceId: serviceID,
+                    description: reviewText,
+                    rating: rating
+                })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert('Review submitted successfully.');
+                location.reload();
+            } else {
+                alert(data.message || 'Failed to submit review.');
+            }
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            alert('Error submitting review.');
+        }
+    });
+});
     </script>
 </body>
 </html>

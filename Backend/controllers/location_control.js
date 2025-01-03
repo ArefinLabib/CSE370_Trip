@@ -78,29 +78,3 @@ exports.addLocationReview = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 };    
-
-// const db = require('../Database/db');
-
-// exports.updateLocationRatings = async (req, res) => {
-//     try {
-//         // Fetch all locations
-//         const [locations] = await db.execute('SELECT locationID FROM Location');
-
-//         // Iterate through each location and update its rating
-//         for (const location of locations) {
-//             const locationId = location.locationID;
-
-//             // Calculate the average rating for the location
-//             const [reviews] = await db.execute('SELECT AVG(rating) as averageRating FROM Reviews WHERE locationID = ?', [locationId]);
-//             const averageRating = reviews[0].averageRating;
-
-//             // Update the location's rating
-//             await db.execute('UPDATE Location SET rating = ? WHERE locationID = ?', [averageRating, locationId]);
-//         }
-
-//         res.status(200).json({ message: 'Location ratings updated successfully.' });
-//     } catch (error) {
-//         console.error('Error updating location ratings:', error.message);
-//         res.status(500).json({ message: 'Internal server error', error: error.message });
-//     }
-// };
