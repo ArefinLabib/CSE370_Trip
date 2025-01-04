@@ -36,7 +36,7 @@ exports.getLocationReviews = async (req, res) => {
         const [reviews] = await db.execute(`
             SELECT r.rating, r.description, a.userName  FROM 
             (Reviews r INNER JOIN TouristDetails t ON r.userID = t.touristID) 
-            INNER JOIN accounts a ON t.userID=a.ID WHERE r.locationID = ?;
+            INNER JOIN accounts a ON t.userID=a.ID WHERE r.locationID = ? AND r.serviceID IS NULL;
         `, [locationId]);
         res.status(200).json({ reviews });
     } catch (error) {

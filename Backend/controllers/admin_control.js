@@ -65,9 +65,8 @@ exports.handleRequest = async (req, res) => {
             if (actionType === 'add') {
                 // destrusture requestData to get attrs
                 const data = JSON.parse(requestData);
-                const { name, description, rating, serviceType, locationName } = data;
+                const { name, description, serviceType, locationName } = data;
     
-                // Find locationID using locationName
                 const [locationResult] = await db.execute('SELECT locationID FROM Location WHERE locationName = ?', [locationName]);
                 if (locationResult.length === 0) {
                     return res.status(404).json({ message: 'Location not found.' });
@@ -75,11 +74,11 @@ exports.handleRequest = async (req, res) => {
                 const locationID = locationResult[0].locationID;
     
                 const [serviceResult] = await db.execute('INSERT INTO Service (name, description, rating, serviceType, locationID, providerID) VALUES (?, ?, ?, ?, ?, ?)', 
-                    [name, description, rating, serviceType, locationID, providerID]);
+                    [name, description, null, serviceType, locationID, providerID]);
                 
                     const newServiceID = serviceResult.insertId;
     
-                    // Add to service type-specific tables
+                    // Add to service typespecific tables
                     if (serviceType === 'hotel') {
                         await db.execute(
                             'INSERT INTO Hotels (serviceID) VALUES (?)',
@@ -92,7 +91,7 @@ exports.handleRequest = async (req, res) => {
                     }
             } else {
                 const data = JSON.parse(requestData);
-                const { name, description, rating, serviceType, locationName } = data;
+                const { name, description, serviceType, locationName } = data;
 
                 // Find locationID using locationName
                 const [locationResult] = await db.execute('SELECT locationID FROM Location WHERE locationName = ?', [locationName]);
@@ -101,10 +100,10 @@ exports.handleRequest = async (req, res) => {
                 }
                 const locationID = locationResult[0].locationID;
 
-                // Update the service details
+                // Update the service details table (handling edit requests)
                 await db.execute(
-                    'UPDATE Service SET name = ?, description = ?, rating = ?, serviceType = ?, locationID = ? WHERE serviceID = ?',
-                    [name, description, rating, serviceType, locationID, serviceID]
+                    'UPDATE Service SET name = ?, description = ?, serviceType = ?, locationID = ? WHERE serviceID = ?',
+                    [name, description, serviceType, locationID, serviceID]
                 );
             }
         await db.execute('UPDATE Requests SET status = "approved" WHERE requestID = ?', [requestID]);

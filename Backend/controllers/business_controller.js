@@ -19,7 +19,10 @@ exports.getUserBusinesses = async (req, res) => {
 
         // Fetch all services owned by the provider
         const [businesses] = await db.execute(
-            'SELECT serviceID, name, description, serviceType, rating, locationID FROM Service WHERE providerID = ?',
+            `SELECT s.serviceID, s.name, s.description, s.serviceType, s.rating, l.locationName 
+                FROM Service s 
+                JOIN Location l ON s.locationID = l.locationID 
+                WHERE s.providerID = ?;`,
             [providerID]
         );
 
@@ -41,7 +44,7 @@ exports.deleteRequest = async (req, res) => {
         }
 
         // Fetch providerID
-        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.id]);
+        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.ID]);
         if (!provider.length) {
             return res.status(404).json({ message: 'Provider not found.' });
         }
@@ -107,7 +110,7 @@ exports.editRequest = async (req, res) => {
         }
 
         // Fetch providerID
-        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.id]);
+        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.ID]);
         if (!provider.length) {
             return res.status(404).json({ message: 'Provider not found.' });
         }

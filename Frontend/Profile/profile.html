@@ -29,7 +29,7 @@
 
         <!-- List of Businesses -->
         <ul id="businessList" class="business-list">
-            <!-- Business items will be dynamically injected here -->
+            <!-- Get and show services from database -->
         </ul>
 
         <!-- Add Business Button -->
@@ -88,6 +88,7 @@
                     
 
                 if (response.ok) {
+                    document.getElementById('userName').textContent = data.userName;
                     document.getElementById('username').textContent = data.userName;
                     document.getElementById('userEmail').textContent = data.email;
                     document.getElementById('userRole').textContent = data.role;
@@ -152,6 +153,7 @@
                         <h2>${business.name}</h2>
                         <p>${business.description}</p>
                         <p><strong>Type:</strong> ${business.serviceType}</p>
+                        <p><strong>Location:</strong> ${business.locationName}</p>
                         <p><strong>Rating:</strong> ${business.rating || 'N/A'}</p>
                     `;
 
@@ -250,10 +252,8 @@
                 document.getElementById('editBusinessID').value = business.serviceID;
                 document.getElementById('editBusinessName').value = business.name;
                 document.getElementById('editBusinessDescription').value = business.description;
-                document.getElementById('editBusinessRating').value = business.rating;
                 document.getElementById('editBusinessType').value = business.serviceType;
                 document.getElementById('editBusinessLocation').value = business.locationName;
-
                 document.getElementById('editBusinessFormContainer').style.display = 'block';
                 document.getElementById('showAddBusinessFormButton').style.display = 'none';
             }
@@ -265,7 +265,6 @@
                 const serviceID = document.getElementById('editBusinessID').value;
                 const name = document.getElementById('editBusinessName').value;
                 const description = document.getElementById('editBusinessDescription').value;
-                const rating = document.getElementById('editBusinessRating').value;
                 const serviceType = document.getElementById('editBusinessType').value;
                 const locationName = document.getElementById('editBusinessLocation').value;
                 const action = document.getElementById('submitEdit').value;
@@ -273,7 +272,6 @@
                 const requestBody = {
                     name,
                     description,
-                    rating,
                     serviceType,
                     locationName,
                 }
@@ -322,10 +320,10 @@
             });
 
             // Hide edit business form when cancel button is clicked
-            document.getElementById('cancelEditBusinessFormButton').addEventListener('click', () => {
-                document.getElementById('editBusinessFormContainer').style.display = 'none';
-                document.getElementById('showAddBusinessFormButton').style.display = 'block';
-            });
+            // document.getElementById('cancelEditBusinessFormButton').addEventListener('click', () => {
+            //     document.getElementById('editBusinessFormContainer').style.display = 'block';
+            //     document.getElementById('showAddBusinessFormButton').style.display = 'none';
+            // });
 
 
             document.getElementById('homeButton').addEventListener('click', () => {
