@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist Dashboard</title>
+    <link rel="stylesheet" href="tourist.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <a href="#" class="brand">Travel</a>
+            <nav class="navigation">
+                <ul class="navigation-items">
+                    <li><a href="../Landing Page/landing.html">Home</a></li>
+                    <li><a href="../Explore/locationList.html">Explore</a></li>
+                    <li><a href="#" id="logoutLink">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="profile">
+            <h2>Welcome, <span id="username">[User Name]</span></h2>
+            <div class="profile-info">
+                <p><strong>Username:</strong> <span id="username2">sername</span></p>
+                <p><strong>Email:</strong> <span id="userEmail">user@example.com</span></p>
+                <p><strong>Account Type:</strong> <span id="userRole"></span></p>
+            </div>
+        </section>
+        <div class="container">
+            <button onclick="location.href='wishlist/wishlist.html'">Go to Wishlist</button>
+        </div>
+
+    </main>
+    <footer>
+        <p>&copy; 2023 Travel. All rights reserved.</p>
+    </footer>
+    <script>
+        const token = localStorage.getItem('token');
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch('http://localhost:8081/profile/profile', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                console.log(data);
+                    
+
+                if (response.ok) {
+                    document.getElementById('username').textContent = data.userName;
+                    document.getElementById('username2').textContent = data.userName;
+                    document.getElementById('userEmail').textContent = data.email;
+                    document.getElementById('userRole').textContent = data.role;
+
+
+                } else {
+                    alert(data.message || 'Failed to fetch user profile.');
+                }
+            } catch (error) {
+                alert('Error fetching user profile.');
+                console.error(error);
+            }
+        }
+
+        document.getElementById('logoutLink').addEventListener('click', (event) => {
+            event.preventDefault();
+            localStorage.removeItem('token');
+            window.location.replace('../Signup/registration.html');
+        });
+
+        document.getElementById('wishlistButton').addEventListener('click', function() {
+        location.href = 'wishlist/wishlist.html';
+        });
+        
+        fetchUserProfile();
+    </script>
+</body>
+</html>
