@@ -78,7 +78,7 @@ exports.addRequest = async (req, res) => {
         }
 
         // Fetch providerID
-        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.id]);
+        const [provider] = await db.execute('SELECT providerID FROM ServiceDetails WHERE userID = ?', [req.user.ID]);
         if (!provider.length) {
             return res.status(404).json({ message: 'Provider not found.' });
         }

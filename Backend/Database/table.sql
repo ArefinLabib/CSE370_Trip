@@ -8,25 +8,25 @@ CREATE TABLE accounts (
 CREATE TABLE TouristDetails (
     touristID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT UNIQUE NOT NULL,
-    FOREIGN KEY (userID) REFERENCES Account(ID)
+    FOREIGN KEY (userID) REFERENCES accounts(ID)
 );
 
 CREATE TABLE AdminDetails (
     adminID INT PRIMARY KEY AUTO_INCREMENT,
     userID INT UNIQUE NOT NULL,
-    FOREIGN KEY (userID) REFERENCES Account(ID)
+    FOREIGN KEY (userID) REFERENCES accounts(ID)
 );
 
 CREATE TABLE ServiceDetails (
     providerID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT UNIQUE NOT NULL,
-    FOREIGN KEY (userID) REFERENCES Account(ID)
+    FOREIGN KEY (userID) REFERENCES accounts(ID)
 );
 CREATE TABLE Location (
     locationID INT PRIMARY KEY AUTO_INCREMENT,
     locationName VARCHAR(100),
-    description TEXT(500)
-    rating FLOAT;
+    description TEXT(500),
+    rating DECIMAL(2,1)
 );
 
 CREATE TABLE Service (
